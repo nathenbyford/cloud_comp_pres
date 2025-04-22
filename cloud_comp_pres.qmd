@@ -1,0 +1,69 @@
+---
+title: 'Feedback Control Systems'
+date: ''
+format: 
+  baylor_theme-revealjs:
+    author: 'Nathen Byford'
+    footer: 'Nathen Byford M.S.'
+    toc: true
+    toc-depth: 2
+    mermaid:
+      theme: forest
+---
+
+# Introduction
+
+## What are Control Systems
+
+::: {.columns}
+::: {.column}
+Control system components
+
+1. Sensors,
+2. Monitors, and
+3. Actuators
+
+Control systems monitor large systems that cannot be monitored individualy.
+
+:::
+
+::: {.column}
+```{mermaid}
+graph TD
+    A[Sensors] -->|Measured values| B[Monitor]
+    B -->|Request| C[Actuators]
+    C -->|Monitoring| A
+
+```
+
+:::
+:::
+
+:::{.def}
+**Thresholds**: Are a form of monitor that once a pre-specified level is reached, some action takes place.
+:::
+
+:::{.notes}
+The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. THe monitor will then decide if it is neccessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.
+
+For example: a parameter used for admin. control policy is the current system load, once some threshold is met, the cloud stops accepting additional load.
+:::
+
+## Challenges
+
+- Implementation of sutch poliies can be challenging,
+- System load is changing rapidly, and
+- SLA requirements need to be considered.
+
+## Thresholds
+
+
+# Proportional Thresholding
+
+## Proportional Thresholding
+
+## How it works
+
+## Room for improvement
+
+# Related Papers
