@@ -39,9 +39,6 @@ graph TD
 :::
 :::
 
-:::{.def}
-**Thresholds**: Are a form of monitor that once a pre-specified level is reached, some action takes place.
-:::
 
 :::{.notes}
 The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. THe monitor will then decide if it is neccessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.
@@ -55,14 +52,25 @@ For example: a parameter used for admin. control policy is the current system lo
 - System load is changing rapidly, and
 - SLA requirements need to be considered.
 
-## Thresholds
+If a customer would like to run their own control monitors on their VMs there is a different set of challenges.
 
+- What information about the system is shared with the customer, 
+- What ability does the customer have to change the system behavior, etc.
+
+## Thresholds
+**Thresholds**: Are a form of monitor that once a pre-specified level is reached, some action takes place.
 
 # Proportional Thresholding
 
-## Proportional Thresholding
+## Proportional Thresholding Overview
+
+- **Definition:** Proportional thresholding is a feedback control policy designed to improve resource management in cloud environments with coarse-grained actuators (e.g., adding/removing virtual machines instead of adjusting resource allocations at finer levels).
+- **Goal:** To ensure stable performance in dynamically scalable systems (such as web services) under varying loads, avoiding oscillations and inefficiencies.
 
 ## How it works
+
+- **Concept:** Unlike static thresholding, where a fixed target range is used, proportional thresholding adjusts the target range dynamically based on accumulated actuator values.
+- 
 
 ## Room for improvement
 
