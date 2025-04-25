@@ -6,7 +6,7 @@ format:
     author: 'Nathen Byford'
     footer: 'Nathen Byford M.S.'
     toc: true
-    toc-depth: 2
+    toc-depth: 1
     mermaid:
       theme: forest
 ---
@@ -46,6 +46,14 @@ The sensors measure the parameter (or parameters) of interest before transmittin
 For example: a parameter used for admin. control policy is the current system load, once some threshold is met, the cloud stops accepting additional load.
 :::
 
+## Control Systems in the Cloud
+
+- Since the early days of the cloud computing the CSP have provided coarse-grain control over the VMs to customers.
+    - Limited to adding another VM or removing VM with prespecified sizes.
+- Meanwhile the CSP is able to control load on their servers with full access to CPU, memory, disk usage, and etc.
+
+![](vertical-scaling.png){fig-align="center"}
+
 ## Challenges
 
 - Implementation of sutch poliies can be challenging,
@@ -55,8 +63,8 @@ For example: a parameter used for admin. control policy is the current system lo
 For customers who would like to run their own control monitors on their VMs there is a different set of challenges.
 
 - What information about the system is shared with the customer, 
-- What ability does the customer have to change the system behavior, and
-- How much do the CSP push back on it.
+- APIs may only provide coarse granularity of control over system, and
+- Coarse granularity can lead to oscillation around a target parameter.
 
 ## Main Problem
 
@@ -110,9 +118,9 @@ where:
 1. Adaptability to workload changes:
     - Might have trouble adapting to dynamic workloads where the rate of change in demend exceeds the adjustment capability
 
-# Adaptive Thrsholds
+# Azure Monitor Autoscale
 
-## Adaptive Thresholds Overview
+## Azure Autoscale Overview
 
 - Statistical technique used to estimate trends and patterns to minimize false alarms.
 - This techique used in anomaly detection can be used to get more accurate estimates of "normal behavior" over time incorperating long term trends and cyclical patterns.
@@ -121,3 +129,13 @@ where:
 ## How Adaptive Thresholds Work
 
 - Let $y_t$ be the observed 
+
+# Autonomic Computing
+
+## What is Autonomic Computing
+
+Principles of self-managing infrastructure:
+
+1. Self-configuration
+2. Self-optimization
+3. 
