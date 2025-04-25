@@ -28,8 +28,28 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
-  <link rel="stylesheet" href="cloud_comp_pres_files/libs/revealjs/dist/theme/quarto-072c70b6f5434f75ab3c746d51608093.css">
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="cloud_comp_pres_files/libs/revealjs/dist/theme/quarto-d4faa0974b07d69ff5575daa42bf902f.css">
   <link href="cloud_comp_pres_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="cloud_comp_pres_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="cloud_comp_pres_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -161,26 +181,12 @@ Nathen Byford
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#/introduction" id="/toc-introduction">Introduction</a>
-<ul>
-<li><a href="#/what-are-control-systems" id="/toc-what-are-control-systems">What are Control Systems</a></li>
-<li><a href="#/challenges" id="/toc-challenges">Challenges</a></li>
-<li><a href="#/main-problem" id="/toc-main-problem">Main Problem</a></li>
-</ul></li>
-<li><a href="#/proportional-thresholding" id="/toc-proportional-thresholding">Proportional Thresholding</a>
-<ul>
-<li><a href="#/proportional-thresholding-goals" id="/toc-proportional-thresholding-goals">Proportional Thresholding Goals</a></li>
-<li><a href="#/proportional-thresholding-overview" id="/toc-proportional-thresholding-overview">Proportional Thresholding Overview</a></li>
-<li><a href="#/how-it-works" id="/toc-how-it-works">How It Works</a></li>
-<li><a href="#/integral-control" id="/toc-integral-control">Integral Control</a></li>
-<li><a href="#/benefits-of-proportional-thresholding" id="/toc-benefits-of-proportional-thresholding">Benefits of Proportional Thresholding</a></li>
-<li><a href="#/potential-shortcomings" id="/toc-potential-shortcomings">Potential Shortcomings</a></li>
-</ul></li>
-<li><a href="#/adaptive-thrsholds" id="/toc-adaptive-thrsholds">Adaptive Thrsholds</a>
-<ul>
-<li><a href="#/adaptive-thresholds-overview" id="/toc-adaptive-thresholds-overview">Adaptive Thresholds Overview</a></li>
-<li><a href="#/how-adaptive-thresholds-work" id="/toc-how-adaptive-thresholds-work">How Adaptive Thresholds Work</a></li>
-</ul></li>
+<li><a href="#/introduction" id="/toc-introduction">Introduction</a></li>
+<li><a href="#/proportional-thresholding" id="/toc-proportional-thresholding">Proportional Thresholding</a></li>
+<li><a href="#/current-cloud-offereings" id="/toc-current-cloud-offereings">Current Cloud Offereings</a></li>
+<li><a href="#/predictive-scaling" id="/toc-predictive-scaling">Predictive Scaling</a></li>
+<li><a href="#/closing-thoughts" id="/toc-closing-thoughts">Closing Thoughts</a></li>
+<li><a href="#/thank-you" id="/toc-thank-you">Thank you</a></li>
 </ul>
 </nav>
 </section>
@@ -192,15 +198,15 @@ Nathen Byford
 <section id="what-are-control-systems" class="slide level2 scrollable">
 <h2>What are Control Systems</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:65%;">
 <p>Control system components</p>
 <ol type="1">
 <li>Sensors,</li>
 <li>Monitors, and</li>
 <li>Actuators</li>
 </ol>
-<p>Control systems monitor large systems that cannot be monitored individualy.</p>
-</div><div class="column">
+<p>Control systems monitor large systems that cannot be monitored individually.</p>
+</div><div class="column" style="width:35%;">
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -219,7 +225,7 @@ Nathen Byford
 </div>
 </div></div>
 <aside class="notes">
-<p>The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. THe monitor will then decide if it is neccessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.</p>
+<p>The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. The monitor will then decide if it is necessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.</p>
 <p>For example: a parameter used for admin. control policy is the current system load, once some threshold is met, the cloud stops accepting additional load.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -233,105 +239,241 @@ Nathen Byford
           display:block!important;
       }</style></aside>
 </section>
+<section id="control-systems-in-the-cloud" class="slide level2">
+<h2>Control Systems in the Cloud</h2>
+<ul>
+<li>Since the early days of the cloud computing the CSP have provided coarse-grain control over the VMs to customers.
+<ul>
+<li>Limited to adding another VM or removing VM with pre-specified sizes.</li>
+</ul></li>
+<li>Meanwhile the CSP is able to control load on their servers with full access to CPU, memory, disk usage, and etc.</li>
+</ul>
+
+<img data-src="vertical-scaling.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="challenges" class="slide level2">
 <h2>Challenges</h2>
 <ul>
-<li>Implementation of sutch poliies can be challenging,</li>
+<li>Implementation of such policies can be challenging,</li>
 <li>System load is changing rapidly, and</li>
-<li>SLA requirements need to be considered.</li>
+<li>SLA requirements need to be considered by CSPs.</li>
 </ul>
 <p>For customers who would like to run their own control monitors on their VMs there is a different set of challenges.</p>
 <ul>
 <li>What information about the system is shared with the customer,</li>
-<li>What ability does the customer have to change the system behavior, and</li>
-<li>How much do the CSP push back on it.</li>
-</ul>
-</section>
-<section id="main-problem" class="slide level2">
-<h2>Main Problem</h2>
-<ul>
-<li>In cloud computing settings the cloud provider like to control workloads and keep system usage high.</li>
-<li>In some cases the cloud customer would also like to keep track of their cloud usage and be able to optimize to keep costs down.</li>
-<li>Is it possible to have both?</li>
+<li>APIs may only provide coarse granularity of control over system, and</li>
+<li>Coarse granularity can lead to oscillation around a target parameter.</li>
 </ul>
 </section></section>
 <section>
 <section id="proportional-thresholding" class="title-slide slide level1 center">
 <h1>Proportional Thresholding</h1>
-
+<p style="font-size: 0.7em;">
+Automated control in cloud computing: challenges and opportunities <span class="citation" data-cites="lim_automated_2009"><a href="#/references" role="doc-biblioref" onclick="">[1]</a></span>
+</p>
 </section>
 <section id="proportional-thresholding-goals" class="slide level2">
 <h2>Proportional Thresholding Goals</h2>
+<p>Early cloud systems exposed basic APIs to add or remove virtual machines (VMs).</p>
+<ul>
+<li>This enabled customer managed scaling.</li>
+<li>With the basic API only coarse-grained control options were available.</li>
+</ul>
 <p>The paper seeks to answer the following questions</p>
 <ul>
-<li>With the constriaints places on the user cloud utility service API, can an external controller function effectively?</li>
-<li>How can controll policies be designed or adapted to handle the coarse-grained actuators typical of current cloud platforms?</li>
+<li>With the constraints places on the user cloud utility service API, can an external controller function effectively?</li>
+<li>How can control policies be designed or adapted to handle the coarse-grained actuators typical of “current” cloud platforms?</li>
 </ul>
 </section>
 <section id="proportional-thresholding-overview" class="slide level2">
 <h2>Proportional Thresholding Overview</h2>
 <ul>
-<li>Proportional thresholding is an advanced feedback control policy used in cloud computing. Introdced in the textbook.</li>
+<li>Proportional thresholding is an enhanced feedback control policy based on a standard integral (feedback) controller.</li>
 <li>Designed to manage resources in environments with coarse-grained control mechanisms (e.g., scaling virtual machines).</li>
-<li>Dynamically adjusts a target utilization range rather than maintaining a fixed target value.</li>
+<li>Dynamically adjusts a target utilization range rather than maintaining a fixed target values.
+<ul>
+<li>Widens at smaller scales and narrows at large scales.</li>
+</ul></li>
 </ul>
 </section>
 <section id="how-it-works" class="slide level2">
 <h2>How It Works</h2>
-<ul>
-<li>Uses integral control modified by dynamically adjusting a target range (high and low thresholds).</li>
-<li>Thresholds narrow dynamically as the system scales, ensuring precise control at larger scales.</li>
-<li>Particularly effective in environments with coarse-grained actuators, such as adding or removing virtual machines.</li>
-</ul>
-</section>
-<section id="integral-control" class="slide level2">
-<h2>Integral Control</h2>
-<p>An integral control is as follows, <span class="math display">\[
+<p>An integral controller is as follows, <span class="math display">\[
   u_{t + 1} = u_t + K_i \times (y_{ref} - y_t)
 \]</span> where:</p>
 <ul>
 <li><span class="math inline">\(u_{t+1}\)</span> is the new actuator value,</li>
 <li><span class="math inline">\(u_t\)</span> is the current actuator value,</li>
-<li><span class="math inline">\(K_i\)</span> is a tuning parameter, <span class="math inline">\(y_{ref}\)</span> is the target sensor measure, and</li>
+<li><span class="math inline">\(K_i\)</span> is a tuning parameter,</li>
+<li><span class="math inline">\(y_{ref}\)</span> is the target sensor measure, and</li>
 <li><span class="math inline">\(y_k\)</span> is the current sensor measure.</li>
 </ul>
 </section>
-<section id="benefits-of-proportional-thresholding" class="slide level2">
-<h2>Benefits of Proportional Thresholding</h2>
+<section id="vision-and-takeaways" class="slide level2">
+<h2>Vision and Takeaways</h2>
 <ul>
-<li>Reduces oscillations compared to traditional integral control or static thresholding.</li>
-<li>Provides stability at smaller cluster sizes and maintains precision control at larger cluster sizes.</li>
-<li>Effectively handles variable workload scenarios, improving resource efficiency and reducing operational costs.</li>
-</ul>
-</section>
-<section id="potential-shortcomings" class="slide level2 scrollable">
-<h2>Potential Shortcomings</h2>
-<ol type="1">
-<li>Adaptability to workload changes:
+<li>The paper proposed the idea of decouples control systems:
 <ul>
-<li>Might have trouble adapting to dynamic workloads where the rate of change in demend exceeds the adjustment capability</li>
+<li><em>Slice controllers</em> (users) and <em>Cloud controllers</em> (CSPs)</li>
 </ul></li>
-</ol>
+<li>The paper also advocates for richer APIs to allow the slice controllers to be more effective.</li>
+</ul>
+<p>Limitations:</p>
+<ul>
+<li>Lack of real-time adaptability, and</li>
+<li>Potential Large jumps in coarse-grain actuator (VM sizing).</li>
+</ul>
 </section></section>
 <section>
-<section id="adaptive-thrsholds" class="title-slide slide level1 center">
-<h1>Adaptive Thrsholds</h1>
+<section id="current-cloud-offereings" class="title-slide slide level1 center">
+<h1>Current Cloud Offereings</h1>
 
 </section>
-<section id="adaptive-thresholds-overview" class="slide level2">
-<h2>Adaptive Thresholds Overview</h2>
+<section id="cloud-autoscalers" class="slide level2">
+<h2>Cloud Autoscalers</h2>
 <ul>
-<li>Statistical technique used to estimate trends and patterns to minimize false alarms.</li>
-<li>This techique used in anomaly detection can be used to get more accurate estimates of “normal behavior” over time incorperating long term trends and cyclical patterns.</li>
-<li>Unlike integral control, the data is assigned a distribution and the distribution of the data at the time point is updated with the new data.</li>
+<li>Starting in the early 2010s many CSPs began to offer integrated autoscalers.
+<ul>
+<li>AWS Auto-scaling <span class="citation" data-cites="barr_new_2017"><a href="#/references" role="doc-biblioref" onclick="">[2]</a></span>,</li>
+<li>Microsoft Azure Auto-scale <span class="citation" data-cites="agrawal_autonomic_2021"><a href="#/references" role="doc-biblioref" onclick="">[3]</a></span>, and</li>
+<li>Google Cloud Autoscaling <span class="citation" data-cites="noauthor_load_nodate"><a href="#/references" role="doc-biblioref" onclick="">[4]</a></span>.</li>
+</ul></li>
+<li>Introduced with target-based scaling using feedback control.</li>
 </ul>
 </section>
-<section id="how-adaptive-thresholds-work" class="slide level2">
-<h2>How Adaptive Thresholds Work</h2>
+<section id="early-autoscalers" class="slide level2 scrollable">
+<h2>Early Autoscalers</h2>
+<p>The process for the early autoscalers where two step:</p>
+<ol type="1">
+<li>Customer specifies a desired metric and level (e.g.&nbsp;70% CPU utilization)</li>
+<li>The auto-scaler will automatically scale up or down as needed to stay near specified level.</li>
+</ol>
+<div class="bottom-callout">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Closely resembled what was purposed by Lim et al.&nbsp;(2009) without the user needing to implement the feedback controller on their own.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="autoscaler-innovations" class="slide level2">
+<h2>Autoscaler Innovations</h2>
+<p>Innovations in auto-scaling include:</p>
 <ul>
-<li>Let <span class="math inline">\(y_t\)</span> be the observed</li>
+<li>Scheduled scaling,</li>
+<li>Integration with containers and PaaS, and</li>
+<li>Predictive Scaling (ML-based).</li>
 </ul>
+</section></section>
+<section>
+<section id="predictive-scaling" class="title-slide slide level1 center">
+<h1>Predictive Scaling</h1>
 
+</section>
+<section id="predictive-scaling-1" class="slide level2">
+<h2>Predictive Scaling</h2>
+<ul>
+<li>Rule-based scalers are reactive in nature,
+<ul>
+<li>This leads to added latency in resource readiness.</li>
+</ul></li>
+<li>Predictive scaling can capture the cyclical trends of usage using Statistical methods.
+<ul>
+<li>Forecast future demand and acquire needed resources in preparation of demand,</li>
+<li>Time series models, or</li>
+<li>Machine learning methods.</li>
+</ul></li>
+</ul>
+</section>
+<section id="current-implementations" class="slide level2">
+<h2>Current Implementations</h2>
+<ul>
+<li>AWS Predictive Scaling and Azure Predictive Auto-scale
+<ul>
+<li>Allow the use of ML models to predict traffic and pre-provision resources, and</li>
+<li>Reduces latency of VM boot and warm up.</li>
+</ul></li>
+<li>More recent work has further developed the use of ML and Reinforcement learning (RL) to automate the process further.</li>
+</ul>
+</section>
+<section id="self-optimization" class="slide level2">
+<h2>Self-Optimization</h2>
+<ul>
+<li>Microsoft Azure Predictive Auto-scale introduced a hybrid approach <span class="citation" data-cites="agrawal_autonomic_2021"><a href="#/references" role="doc-biblioref" onclick="">[3]</a></span>
+<ul>
+<li>Uses ML predictive scaling to scale out, and</li>
+<li>feedback/reactive scaling to scale further.</li>
+</ul></li>
+<li>Alibaba’s Ant Group (Alipay) developed a meta-RL approach <span class="citation" data-cites="xue_meta_2022"><a href="#/references" role="doc-biblioref" onclick="">[5]</a></span> that incorporates,
+<ul>
+<li>A workload prediction model and</li>
+<li>A neural network to make scaling decisions.</li>
+</ul></li>
+</ul>
+</section>
+<section id="user-level-benefits" class="slide level2">
+<h2>User-level Benefits</h2>
+<ul>
+<li>Simplified interfaces,</li>
+<li>Cost savings,</li>
+<li>Reduced Management Burden, and</li>
+<li>Finer control of scaling systems.</li>
+</ul>
+</section></section>
+<section>
+<section id="closing-thoughts" class="title-slide slide level1 center">
+<h1>Closing Thoughts</h1>
+
+</section>
+<section id="unsolved-challenges" class="slide level2">
+<h2>Unsolved Challenges</h2>
+<p>Potential future areas of improvement are:</p>
+<ul>
+<li>Multi-tier and multi-metric scaling,</li>
+<li>Improving interpretability of ML-driven scaling decisions, and</li>
+<li>Other areas of optimization like energy efficiency.</li>
+</ul>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Cloud control systems have shifted from user-managed feedback loops to provider-integrated auto-scaling systems.</li>
+<li>As methods of system control have changed the goal remains the same: Serve users objectives to control systems and keep cost low.</li>
+<li>Currently there is no shortage of user controlled cloud control systems that are feature packed.</li>
+</ul>
+</section></section>
+<section>
+<section id="thank-you" class="title-slide slide level1 center">
+<h1>Thank you</h1>
+
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-lim_automated_2009" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H. C. Lim, S. Babu, J. S. Chase, and S. S. Parekh, <span>“Automated control in cloud computing: Challenges and opportunities,”</span> in <em>Proceedings of the 1st workshop on <span>Automated</span> control for datacenters and clouds</em>, in <span>ACDC</span> ’09. New York, NY, USA: Association for Computing Machinery, Jun. 2009, pp. 13–18. doi: <a href="https://doi.org/10.1145/1555271.1555275">10.1145/1555271.1555275</a>.</div>
+</div>
+<div id="ref-barr_new_2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">J. Barr, <span>“New – <span>Target</span> <span>Tracking</span> <span>Policies</span> for <span>EC2</span> <span>Auto</span> <span>Scaling</span> <span></span> <span>AWS</span> <span>News</span> <span>Blog</span>.”</span> Jul. 2017. Accessed: Apr. 25, 2025. [Online]. Available: <a href="https://aws.amazon.com/blogs/aws/new-target-tracking-policies-for-ec2-auto-scaling/">https://aws.amazon.com/blogs/aws/new-target-tracking-policies-for-ec2-auto-scaling/</a></div>
+</div>
+<div id="ref-agrawal_autonomic_2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">N. Agrawal, <span>“Autonomic cloud computing based management and security solutions: <span>State</span>-of-the-art, challenges, and opportunities,”</span> <em>Transactions on Emerging Telecommunications Technologies</em>, vol. 32, no. 12, p. e4349, 2021, doi: <a href="https://doi.org/10.1002/ett.4349">10.1002/ett.4349</a>.</div>
+</div>
+<div id="ref-noauthor_load_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span>“Load balancing and scaling <span></span> <span>Compute</span> <span>Engine</span> <span>Documentation</span>,”</span> <em>Google Cloud</em>. Accessed: Apr. 25, 2025. [Online]. Available: <a href="https://cloud.google.com/compute/docs/load-balancing-and-autoscaling">https://cloud.google.com/compute/docs/load-balancing-and-autoscaling</a></div>
+</div>
+<div id="ref-xue_meta_2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">S. Xue <em>et al.</em>, <span>“A <span>Meta</span> <span>Reinforcement</span> <span>Learning</span> <span>Approach</span> for <span>Predictive</span> <span>Autoscaling</span> in the <span>Cloud</span>,”</span> in <em>Proceedings of the 28th <span>ACM</span> <span>SIGKDD</span> <span>Conference</span> on <span>Knowledge</span> <span>Discovery</span> and <span>Data</span> <span>Mining</span></em>, Aug. 2022, pp. 4290–4299. doi: <a href="https://doi.org/10.1145/3534678.3539063">10.1145/3534678.3539063</a>.</div>
+</div>
+</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
