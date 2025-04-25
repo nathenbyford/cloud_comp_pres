@@ -307,6 +307,26 @@ Automated control in cloud computing: challenges and opportunities <span class="
 <li><span class="math inline">\(y_{ref}\)</span> is the target sensor measure, and</li>
 <li><span class="math inline">\(y_k\)</span> is the current sensor measure.</li>
 </ul>
+<p>Used in conjunction with thresholds that are set using linear regression to estimate values.</p>
+</section>
+<section id="research-conclusions" class="slide level2">
+<h2>Research conclusions</h2>
+<p>Based on the results the authors were able to:</p>
+<ul>
+<li>Provide sufficient functionality of external controllers within the constrained APIs by
+<ul>
+<li>Adapting Control strategies with their adapted integral control.</li>
+</ul></li>
+<li>Validate the Proportional thresholding approach
+<ul>
+<li>Demonstrated improved stability at small clusters and</li>
+<li>Precise resource control as cluster size increased.</li>
+</ul></li>
+<li>Highlight the need for decoupled control.
+<ul>
+<li>More control for the user would make management and control much easier.</li>
+</ul></li>
+</ul>
 </section>
 <section id="vision-and-takeaways" class="slide level2">
 <h2>Vision and Takeaways</h2>
@@ -333,8 +353,8 @@ Automated control in cloud computing: challenges and opportunities <span class="
 <ul>
 <li>Starting in the early 2010s many CSPs began to offer integrated autoscalers.
 <ul>
-<li>AWS Auto-scaling <span class="citation" data-cites="barr_new_2017"><a href="#/references" role="doc-biblioref" onclick="">[2]</a></span>,</li>
-<li>Microsoft Azure Auto-scale <span class="citation" data-cites="agrawal_autonomic_2021"><a href="#/references" role="doc-biblioref" onclick="">[3]</a></span>, and</li>
+<li>AWS Autoscaling <span class="citation" data-cites="barr_new_2017"><a href="#/references" role="doc-biblioref" onclick="">[2]</a></span>,</li>
+<li>Microsoft Azure Autoscale <span class="citation" data-cites="agrawal_autonomic_2021"><a href="#/references" role="doc-biblioref" onclick="">[3]</a></span>, and</li>
 <li>Google Cloud Autoscaling <span class="citation" data-cites="noauthor_load_nodate"><a href="#/references" role="doc-biblioref" onclick="">[4]</a></span>.</li>
 </ul></li>
 <li>Introduced with target-based scaling using feedback control.</li>
@@ -445,7 +465,7 @@ Automated control in cloud computing: challenges and opportunities <span class="
 <h2>Conclusion</h2>
 <ul>
 <li>Cloud control systems have shifted from user-managed feedback loops to provider-integrated auto-scaling systems.</li>
-<li>As methods of system control have changed the goal remains the same: Serve users objectives to control systems and keep cost low.</li>
+<li>As methods of system control have changed the goal remains the same: Allowing the users to control systems on their own and keep cost low.</li>
 <li>Currently there is no shortage of user controlled cloud control systems that are feature packed.</li>
 </ul>
 </section></section>
