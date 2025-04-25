@@ -120,18 +120,16 @@ $gray70: #b3b3b3;
 
 
 // Section break slide
-/*--
-	hr,
-	h1::after {
-		content: "";
-		display: block;
-		border: none;
-		background-color: #FFB81C;
-		color: #FFB81C;
-		height: 1px;
-		margin: 1em 10px 0 10px;
-	}
---*/
+hr,
+h1::after {
+	content: "";
+	display: block;
+	border: none;
+	background-color: #FFB81C;
+	color: #FFB81C;
+	height: 1px;
+	//margin: 1em 10px 0 10px;
+}
 
 // Override h1 style for title slide (remove section break slide style)
 hr,
@@ -206,6 +204,15 @@ iframe {
 	text-align: center;
 }
 
+// Bottom callout
+.bottom-callout {
+	position: absolute;
+	bottom: 1em;
+	left: 0;
+	right: 0;
+	margin-bottom: 0;
+	z-index: 10;
+  }
 
 //
 .reveal .slide-menu-button .fa-bars::before {

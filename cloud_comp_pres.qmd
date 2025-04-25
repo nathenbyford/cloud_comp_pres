@@ -1,6 +1,8 @@
 ---
 title: 'Feedback Control Systems'
 date: ''
+bibliography: cloud-computing.bib
+csl: ieee
 format: 
   baylor_theme-revealjs:
     author: 'Nathen Byford'
@@ -16,18 +18,18 @@ format:
 ## What are Control Systems
 
 ::: {.columns}
-::: {.column}
+::: {.column width="65%"}
 Control system components
 
 1. Sensors,
 2. Monitors, and
 3. Actuators
 
-Control systems monitor large systems that cannot be monitored individualy.
+Control systems monitor large systems that cannot be monitored individually.
 
 :::
 
-::: {.column}
+::: {.column width="35%"}
 ```{mermaid}
 graph TD
     A[Sensors] -->|Measured values| B[Monitor]
@@ -41,7 +43,7 @@ graph TD
 
 
 :::{.notes}
-The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. THe monitor will then decide if it is neccessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.
+The sensors measure the parameter (or parameters) of interest before transmitting the measured values to the monitor. The monitor will then decide if it is necessary for the system behaviors to change. If the behaviors do need to change then the request is given to the actuators to carry out on the system.
 
 For example: a parameter used for admin. control policy is the current system load, once some threshold is met, the cloud stops accepting additional load.
 :::
@@ -49,16 +51,16 @@ For example: a parameter used for admin. control policy is the current system lo
 ## Control Systems in the Cloud
 
 - Since the early days of the cloud computing the CSP have provided coarse-grain control over the VMs to customers.
-    - Limited to adding another VM or removing VM with prespecified sizes.
+    - Limited to adding another VM or removing VM with pre-specified sizes.
 - Meanwhile the CSP is able to control load on their servers with full access to CPU, memory, disk usage, and etc.
 
 ![](vertical-scaling.png){fig-align="center"}
 
 ## Challenges
 
-- Implementation of sutch poliies can be challenging,
+- Implementation of such policies can be challenging,
 - System load is changing rapidly, and
-- SLA requirements need to be considered.
+- SLA requirements need to be considered by CSPs.
 
 For customers who would like to run their own control monitors on their VMs there is a different set of challenges.
 
@@ -66,36 +68,31 @@ For customers who would like to run their own control monitors on their VMs ther
 - APIs may only provide coarse granularity of control over system, and
 - Coarse granularity can lead to oscillation around a target parameter.
 
-## Main Problem
-
-- In cloud computing settings the cloud provider like to control workloads and keep system usage high.
-- In some cases the cloud customer would also like to keep track of their cloud usage and be able to optimize to keep costs down.
-- Is it possible to have both?
-
 # Proportional Thresholding
+<p style="font-size: 0.7em;">Automated control in cloud computing: challenges and opportunities @lim_automated_2009</p>
 
 ## Proportional Thresholding Goals
 
+Early cloud systems exposed basic APIs to add or remove virtual machines (VMs).
+
+- This enabled customer managed scaling.
+- With the basic API only coarse-grained control options were available.
+
 The paper seeks to answer the following questions
 
-- With the constriaints places on the user cloud utility service API, can an external controller function effectively?
-- How can controll policies be designed or adapted to handle the coarse-grained actuators typical of current cloud platforms?
+- With the constraints places on the user cloud utility service API, can an external controller function effectively?
+- How can control policies be designed or adapted to handle the coarse-grained actuators typical of "current" cloud platforms?
 
 ## Proportional Thresholding Overview
 
-- Proportional thresholding is an advanced feedback control policy used in cloud computing. Introdced in the textbook.
+- Proportional thresholding is an enhanced feedback control policy based on a standard integral (feedback) controller.
 - Designed to manage resources in environments with coarse-grained control mechanisms (e.g., scaling virtual machines).
-- Dynamically adjusts a target utilization range rather than maintaining a fixed target value.
+- Dynamically adjusts a target utilization range rather than maintaining a fixed target values.
+    - Widens at smaller scales and narrows at large scales.
 
 ## How It Works
 
-- Uses integral control modified by dynamically adjusting a target range (high and low thresholds).
-- Thresholds narrow dynamically as the system scales, ensuring precise control at larger scales.
-- Particularly effective in environments with coarse-grained actuators, such as adding or removing virtual machines.
-
-## Integral Control
-
-An integral control is as follows,
+An integral controller is as follows,
 $$
   u_{t + 1} = u_t + K_i \times (y_{ref} - y_t)
 $$
@@ -103,39 +100,101 @@ where:
 
 - $u_{t+1}$ is the new actuator value,
 - $u_t$ is the current actuator value,
-- $K_i$ is a tuning parameter, $y_{ref}$ is the target sensor measure, and
+- $K_i$ is a tuning parameter, 
+- $y_{ref}$ is the target sensor measure, and
 - $y_k$ is the current sensor measure.
 
 
-## Benefits of Proportional Thresholding
+## Vision and Takeaways
 
-- Reduces oscillations compared to traditional integral control or static thresholding.
-- Provides stability at smaller cluster sizes and maintains precision control at larger cluster sizes.
-- Effectively handles variable workload scenarios, improving resource efficiency and reducing operational costs.
+- The paper proposed the idea of decouples control systems:
+    - *Slice controllers* (users) and *Cloud controllers* (CSPs)
+- The paper also advocates for richer APIs to allow the slice controllers to be more effective.
 
-## Potential Shortcomings
+Limitations:
 
-1. Adaptability to workload changes:
-    - Might have trouble adapting to dynamic workloads where the rate of change in demend exceeds the adjustment capability
+- Lack of real-time adaptability, and
+- Potential Large jumps in coarse-grain actuator (VM sizing).
 
-# Azure Monitor Autoscale
+# Current Cloud Offereings
 
-## Azure Autoscale Overview
+## Cloud Autoscalers
 
-- Statistical technique used to estimate trends and patterns to minimize false alarms.
-- This techique used in anomaly detection can be used to get more accurate estimates of "normal behavior" over time incorperating long term trends and cyclical patterns.
-- Unlike integral control, the data is assigned a distribution and the distribution of the data at the time point is updated with the new data.
+- Starting in the early 2010s many CSPs began to offer integrated autoscalers.
+    - AWS Auto-scaling @barr_new_2017,
+    - Microsoft Azure Auto-scale @agrawal_autonomic_2021, and
+    - Google Cloud Autoscaling @noauthor_load_nodate.
+- Introduced with target-based scaling using feedback control.
 
-## How Adaptive Thresholds Work
+## Early Autoscalers
 
-- Let $y_t$ be the observed 
+The process for the early autoscalers where two step:
 
-# Autonomic Computing
+1. Customer specifies a desired metric and level (e.g. 70% CPU utilization)
+2. The auto-scaler will automatically scale up or down as needed to stay near specified level.
 
-## What is Autonomic Computing
+:::{.callout-note .bottom-callout}
+Closely resembled what was purposed by Lim et al. (2009) without the user needing to implement the feedback controller on their own.
+:::
 
-Principles of self-managing infrastructure:
+## Autoscaler Innovations
 
-1. Self-configuration
-2. Self-optimization
-3. 
+Innovations in auto-scaling include:
+
+- Scheduled scaling,
+- Integration with containers and PaaS, and
+- Predictive Scaling (ML-based).
+
+# Predictive Scaling
+
+## Predictive Scaling
+
+- Rule-based scalers are reactive in nature,
+    - This leads to added latency in resource readiness.
+- Predictive scaling can capture the cyclical trends of usage using Statistical methods.
+    - Forecast future demand and acquire needed resources in preparation of demand,
+    - Time series models, or
+    - Machine learning methods.
+
+## Current Implementations
+
+- AWS Predictive Scaling and Azure Predictive Auto-scale
+    - Allow the use of ML models to predict traffic and pre-provision resources, and
+    - Reduces latency of VM boot and warm up.
+- More recent work has further developed the use of ML and Reinforcement learning (RL) to automate the process further.
+
+## Self-Optimization
+
+- Microsoft Azure Predictive Auto-scale introduced a hybrid approach @agrawal_autonomic_2021
+    - Uses ML predictive scaling to scale out, and
+    - feedback/reactive scaling to scale further.
+- Alibaba's Ant Group (Alipay) developed a meta-RL approach @xue_meta_2022 that incorporates,
+    - A workload prediction model and
+    - A neural network to make scaling decisions.
+
+## User-level Benefits
+
+- Simplified interfaces,
+- Cost savings,
+- Reduced Management Burden, and
+- Finer control of scaling systems.
+
+# Closing Thoughts
+
+## Unsolved Challenges
+
+Potential future areas of improvement are:
+
+- Multi-tier and multi-metric scaling,
+- Improving interpretability of ML-driven scaling decisions, and
+- Other areas of optimization like energy efficiency.
+
+## Conclusion
+
+- Cloud control systems have shifted from user-managed feedback loops to provider-integrated auto-scaling systems.
+- As methods of system control have changed the goal remains the same: Serve users objectives to control systems and keep cost low.
+- Currently there is no shortage of user controlled cloud control systems that are feature packed.
+
+# Thank you
+
+## References
